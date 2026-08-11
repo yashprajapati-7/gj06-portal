@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111111">
+<title>GJ06 — Apps</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{font-family:'DM Sans',sans-serif;background:#111;color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px}
+  .logo{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;letter-spacing:-1px;margin-bottom:6px;text-align:center}
+  .tagline{font-size:13px;font-weight:500;color:rgba(255,255,255,.4);letter-spacing:2px;text-transform:uppercase;text-align:center;margin-bottom:48px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;max-width:520px}
+  @media(max-width:480px){.grid{grid-template-columns:1fr}}
+  .card{background:#1a1a1a;border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:24px 22px;text-decoration:none;color:#fff;display:flex;flex-direction:column;gap:10px;transition:background .2s,border-color .2s,transform .15s}
+  .card:hover{background:#222;border-color:rgba(255,255,255,.18);transform:translateY(-2px)}
+  .card:active{transform:scale(.97)}
+  .card-icon{font-size:28px;line-height:1}
+  .card-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700}
+  .card-desc{font-size:12px;color:rgba(255,255,255,.45);font-weight:400;line-height:1.5}
+  .card-arrow{margin-top:auto;font-size:18px;color:rgba(255,255,255,.25);text-align:right}
+  .footer{margin-top:40px;font-size:11px;color:rgba(255,255,255,.2);letter-spacing:1px;text-transform:uppercase;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="logo">GJ 06</div>
+<div class="tagline">Internal Tools</div>
+
+<div class="grid">
+
+  <a class="card" href="https://roster-psd0.onrender.com/" target="_blank">
+    <div class="card-icon">🗓️</div>
+    <div class="card-name">Roster</div>
+    <div class="card-desc">Weekly staff schedule & shift management</div>
+    <div class="card-arrow">→</div>
+  </a>
+
+  <a class="card" href="https://www.gj06.com.au/index.html" target="_blank">
+    <div class="card-icon">🌐</div>
+    <div class="card-name">Website</div>
+    <div class="card-desc">GJ06 public website & menu</div>
+    <div class="card-arrow">→</div>
+  </a>
+
+  <a class="card" href="https://gj06-inventory-app-production.up.railway.app/login.php" target="_blank">
+    <div class="card-icon">📦</div>
+    <div class="card-name">Inventory</div>
+    <div class="card-desc">Stock tracking & inventory management</div>
+    <div class="card-arrow">→</div>
+  </a>
+
+  <a class="card" href="https://github.com/kushal2610/bakery-delivery" target="_blank">
+    <div class="card-icon">🥐</div>
+    <div class="card-name">Bakery</div>
+    <div class="card-desc">Bakery delivery tracking & orders</div>
+    <div class="card-arrow">→</div>
+  </a>
+
+</div>
+
+<div class="footer">GJ06 Cafe &nbsp;·&nbsp; Internal use only</div>
+
+</body>
+</html>
