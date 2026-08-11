@@ -3,31 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#F8F7F4">
+<meta name="theme-color" content="#111111">
 <title>GJ06 — Portal</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --black: #111;
+    --bg: #111;
+    --surface: #1C1C1C;
+    --border: rgba(255,255,255,0.12);
     --white: #fff;
-    --cream: #F8F7F4;
-    --border: #111;
+    --cream: #F5F0E8;
+    --muted: rgba(255,255,255,0.4);
+    --accent: #F5C518;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
   body {
     font-family: 'DM Sans', sans-serif;
-    background-color: var(--cream);
-    background-image: radial-gradient(circle, #C8C5BF 1px, transparent 1px);
-    background-size: 22px 22px;
+    background: var(--bg);
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 32px 32px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px 24px 60px;
+    padding: 48px 24px 64px;
   }
 
   /* ── Hero ── */
@@ -35,80 +40,104 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 52px;
+    margin-bottom: 48px;
     animation: fadeUp 0.7s cubic-bezier(.22,1,.36,1) both;
   }
 
   .logo-wrap {
-    width: 120px;
-    height: 120px;
-    border-radius: 28px;
+    width: 110px;
+    height: 110px;
+    border-radius: 24px;
     background: var(--white);
-    border: 2px solid var(--black);
+    border: 2.5px solid rgba(255,255,255,0.9);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 22px;
+    margin-bottom: 24px;
     overflow: hidden;
-    animation: float 4s ease-in-out infinite;
-    box-shadow: 4px 4px 0 var(--black);
+    animation: float 5s ease-in-out infinite;
+    position: relative;
+  }
+
+  .logo-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -2.5px;
+    border-radius: 26px;
+    background: linear-gradient(135deg, var(--accent), transparent 60%);
+    opacity: 0.35;
+    z-index: 0;
   }
 
   .logo-wrap img {
-    width: 92px;
-    height: 92px;
+    width: 86px;
+    height: 86px;
     object-fit: contain;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-text {
+    text-align: center;
   }
 
   .brand {
     font-family: 'Playfair Display', serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    color: var(--black);
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: -0.5px;
     margin-bottom: 6px;
   }
 
   .tagline {
     font-size: 12px;
-    font-weight: 400;
-    color: #888;
-    letter-spacing: 1.5px;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 2.5px;
     text-transform: uppercase;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    width: 40px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin: 18px auto 0;
   }
 
   /* ── Grid ── */
   .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 14px;
     width: 100%;
-    max-width: 540px;
+    max-width: 520px;
   }
 
-  @media (max-width: 460px) {
+  @media (max-width: 440px) {
     .grid { grid-template-columns: 1fr; }
+    .brand { font-size: 26px; }
   }
 
   /* ── Card ── */
   .card {
-    background: var(--white);
-    border: 2px solid var(--black);
+    background: var(--surface);
+    border: 1.5px solid var(--border);
     border-radius: 20px;
-    padding: 26px 22px 22px;
+    padding: 22px 20px 18px;
     text-decoration: none;
-    color: var(--black);
+    color: var(--white);
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
     position: relative;
-    transition: transform 0.18s cubic-bezier(.22,1,.36,1), box-shadow 0.18s cubic-bezier(.22,1,.36,1), background 0.18s, color 0.18s;
-    box-shadow: 4px 4px 0 var(--black);
+    overflow: hidden;
+    cursor: pointer;
     opacity: 0;
     animation: fadeUp 0.6s cubic-bezier(.22,1,.36,1) both;
-    cursor: pointer;
-    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s cubic-bezier(.22,1,.36,1);
   }
 
   .card:nth-child(1) { animation-delay: 0.15s; }
@@ -116,80 +145,81 @@
   .card:nth-child(3) { animation-delay: 0.35s; }
   .card:nth-child(4) { animation-delay: 0.45s; }
 
-  .card::after {
+  /* Shimmer fill on hover */
+  .card::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: var(--black);
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform 0.25s cubic-bezier(.22,1,.36,1);
+    background: var(--white);
+    transform: translateY(100%);
+    transition: transform 0.28s cubic-bezier(.22,1,.36,1);
     z-index: 0;
-    border-radius: 18px;
+    border-radius: 19px;
   }
 
   .card:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 var(--black);
-    color: var(--white);
+    border-color: var(--white);
+    transform: translateY(-3px);
+    color: var(--bg);
   }
 
-  .card:hover::after { transform: scaleY(1); }
-  .card:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--black); }
+  .card:hover::before { transform: translateY(0); }
+  .card:active { transform: translateY(0px) scale(0.98); }
 
   .card > * { position: relative; z-index: 1; }
 
   .card-tag {
     font-size: 10px;
     font-weight: 700;
-    letter-spacing: 2px;
+    letter-spacing: 2.5px;
     text-transform: uppercase;
-    color: #999;
-    transition: color 0.18s;
+    color: var(--accent);
+    transition: color 0.2s;
   }
 
-  .card:hover .card-tag { color: rgba(255,255,255,0.5); }
+  .card:hover .card-tag { color: #a08010; }
 
   .card-name {
     font-family: 'Playfair Display', serif;
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 700;
     line-height: 1.1;
   }
 
   .card-desc {
     font-size: 12px;
-    color: #777;
+    color: var(--muted);
     font-weight: 400;
     line-height: 1.55;
-    transition: color 0.18s;
+    transition: color 0.2s;
   }
 
-  .card:hover .card-desc { color: rgba(255,255,255,0.65); }
+  .card:hover .card-desc { color: rgba(0,0,0,0.55); }
 
   .card-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 8px;
+    margin-top: 10px;
   }
 
   .card-icon {
-    font-size: 22px;
+    font-size: 20px;
     line-height: 1;
+    filter: grayscale(0.3);
   }
 
   .card-arrow {
-    width: 32px;
-    height: 32px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     border: 1.5px solid currentColor;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
-    opacity: 0.35;
-    transition: opacity 0.18s, transform 0.18s;
+    font-size: 13px;
+    opacity: 0.3;
+    transition: opacity 0.2s, transform 0.2s;
   }
 
   .card:hover .card-arrow {
@@ -199,29 +229,24 @@
 
   /* ── Footer ── */
   .footer {
-    margin-top: 48px;
+    margin-top: 44px;
     font-size: 11px;
-    color: #aaa;
-    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 2px;
     text-transform: uppercase;
     text-align: center;
-    animation: fadeUp 0.7s 0.6s cubic-bezier(.22,1,.36,1) both;
-  }
-
-  .footer span {
-    color: #ccc;
-    margin: 0 6px;
+    animation: fadeUp 0.7s 0.55s cubic-bezier(.22,1,.36,1) both;
   }
 
   /* ── Animations ── */
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
+    from { opacity: 0; transform: translateY(20px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
   @keyframes float {
     0%, 100% { transform: translateY(0px); }
-    50%       { transform: translateY(-6px); }
+    50%       { transform: translateY(-7px); }
   }
 </style>
 </head>
@@ -229,10 +254,13 @@
 
 <div class="hero">
   <div class="logo-wrap">
-    <img src="logo.png" alt="GJ06 Logo">
+    <img src="logo.png" alt="GJ06">
   </div>
-  <div class="brand">GJ 06 Cafe</div>
-  <div class="tagline">A magical 2D cafe &amp; bakehouse</div>
+  <div class="hero-text">
+    <div class="brand">GJ 06</div>
+    <div class="tagline">A magical 2D cafe &amp; bakehouse</div>
+    <div class="divider"></div>
+  </div>
 </div>
 
 <div class="grid">
@@ -279,9 +307,7 @@
 
 </div>
 
-<div class="footer">
-  GJ06 <span>·</span> Internal Tools <span>·</span> 2025
-</div>
+<div class="footer">GJ06 Cafe &nbsp;·&nbsp; Internal Tools</div>
 
 </body>
 </html>
